@@ -1,36 +1,50 @@
 subprojects {
     apply plugin: 'java'
-
-    group = 'com.aalzatea'
-    version = "${application_version}"
+    apply plugin: 'com.adarshr.test-logger'
 
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
 
-    dependencies {
-        implementation platform("org.springframework.boot:spring-boot-dependencies:${springBootVersion}")
+    configurations {
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
     }
 
-    tasks.named('test') {
+    dependencies {
+        //Lombok dependencies
+        compileOnly "org.projectlombok:lombok"
+        annotationProcessor "org.projectlombok:lombok"
+        testCompileOnly "org.projectlombok:lombok"
+        testAnnotationProcessor "org.projectlombok:lombok"
+
+        //Unit testing dependencies
+        testImplementation 'org.junit.jupiter:junit-jupiter-api'
+        testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+        testImplementation 'org.mockito:mockito-core'
+        testImplementation 'org.mockito:mockito-inline'
+        testImplementation 'org.mockito:mockito-junit-jupiter'
+        testImplementation "uk.co.jemos.podam:podam:${podamVersion}"
+    }
+
+    test {
         useJUnitPlatform()
     }
 }
 
-project(':domain-model') {
-    configurations {
-        implementation {
-            exclude group: 'org.springframework.boot'
-        }
-    }
-}
+/*projects {
+    def projects = [':domain-model', ':domain-use-cases']
 
-project(':infrastructure-helpers') {
-    configurations {
-        implementation {
-            exclude group: 'org.springframework.boot'
+    projects.forEach {
+        project(it) {
+            configurations {
+                implementation {
+                    exclude group: 'org.springframework.boot'
+                }
+            }
         }
     }
-}
+}*/
 
 /*
 dependencies {
@@ -38,4 +52,4 @@ dependencies {
         exclude group: 'com.google.code.findbugs', module: 'jsr305'
     }
 }
- */
+*/

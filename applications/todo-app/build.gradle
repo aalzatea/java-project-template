@@ -23,5 +23,5 @@ jar {
 }
 
 bootJar {
-    archiveFileName = "${project.getName()}-${project.getVersion()}.${archiveExtension.get()}"
+    archiveFileName = "${project.getProjectDir().getName()}-${project.getVersion()}.${archiveExtension.get()}"
 }
