@@ -1,0 +1,22 @@
+buildscript {
+	ext {
+		springBootVersion = '2.7.2'
+		springDependencyManagement = '1.0.11.RELEASE'
+	}
+}
+
+plugins {
+	id 'org.springframework.boot' version "${springBootVersion}"
+	id 'io.spring.dependency-management' version "${springDependencyManagement}"
+}
+
+allprojects {
+	repositories {
+		mavenLocal()
+		mavenCentral()
+		maven { url "https://repo.spring.io/snapshot" }
+		maven { url "https://repo.spring.io/milestone" }
+	}
+}
+
+apply from: './main.gradle'

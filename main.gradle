@@ -1,0 +1,41 @@
+subprojects {
+    apply plugin: 'java'
+
+    group = 'com.aalzatea'
+    version = "${application_version}"
+
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+
+    dependencies {
+        implementation platform("org.springframework.boot:spring-boot-dependencies:${springBootVersion}")
+    }
+
+    tasks.named('test') {
+        useJUnitPlatform()
+    }
+}
+
+project(':domain-model') {
+    configurations {
+        implementation {
+            exclude group: 'org.springframework.boot'
+        }
+    }
+}
+
+project(':infrastructure-helpers') {
+    configurations {
+        implementation {
+            exclude group: 'org.springframework.boot'
+        }
+    }
+}
+
+/*
+dependencies {
+    implementation('com.google.guava:guava:30.1.1-jre') {
+        exclude group: 'com.google.code.findbugs', module: 'jsr305'
+    }
+}
+ */

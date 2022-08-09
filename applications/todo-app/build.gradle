@@ -1,0 +1,27 @@
+apply plugin: 'org.springframework.boot'
+
+dependencies {
+    //Include needed modules to run application
+    implementation project(':domain-model')
+    implementation project(':domain-use-cases')
+    implementation project(':driven-adapters-postgresql')
+    implementation project(':entry-points-web-services')
+
+    implementation 'org.springframework.boot:spring-boot-starter-undertow'
+    implementation 'org.springframework.boot:spring-boot-starter'
+    runtimeOnly('org.springframework.boot:spring-boot-devtools')
+}
+
+configurations {
+    implementation.exclude group: "org.springframework.boot", module: "spring-boot-starter-tomcat"
+    implementation.exclude group: "org.apache.logging.log4j"
+    implementation.exclude group: "org.apache.tomcat.embed"
+}
+
+jar {
+    enabled = false
+}
+
+bootJar {
+    archiveFileName = "${project.getName()}-${project.getVersion()}.${archiveExtension.get()}"
+}

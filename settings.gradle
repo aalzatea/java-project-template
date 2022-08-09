@@ -1,0 +1,40 @@
+rootProject.name = 'java-project-template'
+
+FileTree buildFiles = fileTree(rootDir) {
+    List excludes = gradle.startParameter.projectProperties.get("excludeProjects")?.split(",")
+    include '**/build.gradle'
+    exclude 'main.gradle', 'build', '**/gradle', 'settings.gradle', '/build.gradle', '.*', 'out'
+
+    if(excludes) {
+        exclude excludes
+    }
+}
+
+buildFiles.each { File buildFile ->
+    String projectName = buildFile.parentFile.name
+    String projectPath = ':' + projectName;
+    include projectPath
+
+    def project = findProject("${projectPath}")
+    project.name = buildFile.parentFile.parentFile.name + '-' + projectName
+    project.projectDir = buildFile.parentFile
+    project.buildFileName = buildFile.name
+}
+
+/*
+//Include all domain modules
+include ':domain:model'
+include ':domain:use-cases'
+
+//Include all infrastructure modules
+include ':infrastructure:driven-adapters:postgresql'
+include ':infrastructure:entry-points:web-services'
+include ':infrastructure:helpers'
+
+//Include all applications modules
+include ':applications:todo-app'
+
+//Define module as project sentence
+project(':<module-name>').projectDir = file('<project-path>')
+Ej: project(':model').projectDir = file('./domain/model')
+*/
