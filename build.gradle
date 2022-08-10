@@ -4,6 +4,7 @@ buildscript {
 		springDependencyManagementVersion = '1.0.11.RELEASE'
 		gradleWrapperVersion = '7.5.1'
 		podamVersion = '7.2.9.RELEASE'
+		dataFakerVersion = '1.5.0'
 	}
 }
 
