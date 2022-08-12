@@ -7,15 +7,12 @@ dependencies {
     implementation project(':driven-adapters-postgresql')
     implementation project(':entry-points-web-services')
 
+    //Self contained dependencies
     implementation 'org.springframework.boot:spring-boot-starter-undertow'
     implementation 'org.springframework.boot:spring-boot-starter'
-    runtimeOnly('org.springframework.boot:spring-boot-devtools')
-}
 
-configurations {
-    implementation.exclude group: "org.springframework.boot", module: "spring-boot-starter-tomcat"
-    implementation.exclude group: "org.apache.logging.log4j"
-    implementation.exclude group: "org.apache.tomcat.embed"
+    //Developer tools dependencies
+    runtimeOnly('org.springframework.boot:spring-boot-devtools')
 }
 
 jar {

@@ -1,3 +1,9 @@
 dependencies {
+    //Modules dependencies
     implementation project(':domain-model')
+    implementation project(':domain-use-cases')
+
+    //Web application dependencies
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    //implementation 'org.springframework.boot:spring-boot-starter-actuator'
 }

@@ -1,0 +1,4 @@
+app:
+  json-configuration:
+    date-format: "yyyy-MM-dd'T'HH:mm:ss.SSSX"
+    timezone: "America/Bogota"

@@ -9,6 +9,10 @@ subprojects {
         compileOnly {
             extendsFrom annotationProcessor
         }
+
+        implementation.exclude group: "org.springframework.boot", module: "spring-boot-starter-tomcat"
+        implementation.exclude group: "org.apache.logging.log4j"
+        implementation.exclude group: "org.apache.tomcat.embed"
     }
 
     dependencies {
@@ -18,9 +22,6 @@ subprojects {
         testCompileOnly "org.projectlombok:lombok"
         testAnnotationProcessor "org.projectlombok:lombok"
 
-        //Logs dependencies
-        testImplementation 'ch.qos.logback:logback-classic'
-
         //Unit testing dependencies
         testImplementation 'org.junit.jupiter:junit-jupiter-api'
         testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
@@ -29,9 +30,6 @@ subprojects {
         testImplementation 'org.mockito:mockito-junit-jupiter'
         testImplementation "uk.co.jemos.podam:podam:${podamVersion}"
         testImplementation "net.datafaker:datafaker:${dataFakerVersion}" //https://github.com/datafaker-net/datafaker
-        /*testImplementation("com.github.javafaker:javafaker:1.0.2") {
-            exclude group: 'org.yaml', module: 'snakeyaml'
-        }*/
     }
 
     test {
