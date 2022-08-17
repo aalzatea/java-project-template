@@ -30,6 +30,7 @@ subprojects {
         testImplementation 'org.mockito:mockito-junit-jupiter'
         testImplementation "uk.co.jemos.podam:podam:${podamVersion}"
         testImplementation "net.datafaker:datafaker:${dataFakerVersion}" //https://github.com/datafaker-net/datafaker
+        testImplementation 'ch.qos.logback:logback-classic'
     }
 
     test {
