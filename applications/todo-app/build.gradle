@@ -11,6 +11,9 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-undertow'
     implementation 'org.springframework.boot:spring-boot-starter'
 
+    //Application monitoring dependencies
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
     //Developer tools dependencies
     runtimeOnly('org.springframework.boot:spring-boot-devtools')
 }

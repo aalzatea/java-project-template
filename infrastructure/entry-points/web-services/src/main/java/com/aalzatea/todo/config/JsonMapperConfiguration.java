@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.util.StringUtils;
 
 import java.text.SimpleDateFormat;
-import java.time.ZoneId;
 import java.util.TimeZone;
 
 @Configuration
@@ -41,7 +40,7 @@ public class JsonMapperConfiguration {
                 DATE_FORMAT_DEFAULT;
 
         var timeZoneValue = StringUtils.hasText(timeZone) ?
-                TimeZone.getTimeZone(ZoneId.of(timeZone)) :
+                TimeZone.getTimeZone(timeZone) :
                 TimeZone.getDefault();
 
         objectMapper.setDateFormat(new SimpleDateFormat(dateFormatValue));

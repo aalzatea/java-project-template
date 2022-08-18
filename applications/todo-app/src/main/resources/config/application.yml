@@ -1,8 +1,44 @@
+spring:
+  application:
+    name: Java Template Applicaton
+
+# Custom application configurations
 app:
   json-configuration:
     date-format: "yyyy-MM-dd'T'HH:mm:ss.SSSX"
-    timezone: "America/Bogota"
+    #timezone: America/Bogota
+    #timezone: UTC-05:00
+    #timezone: GMT-5
+    timezone: EST
 
+# Management configuration
+management:
+  server:
+    port: 8081
+  address: 127.0.0.1
+  enabled-by-default: false
+  endpoints:
+    web:
+      exposure:
+        include:
+          - health
+          - info
+        exclude:
+          - metrics
+      base-path: "/monitor"
+      path-mapping:
+        health: "healthcheck"
+  endpoint:
+    health:
+      enabled: true
+      show-components: WHEN_AUTHORIZED
+      show-details: WHEN_AUTHORIZED
+    info:
+      enabled: true
+    metrics:
+      enabled: true
+
+# Logging application configuration
 logging:
   level:
     org:
