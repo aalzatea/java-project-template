@@ -28,9 +28,10 @@ subprojects {
         testImplementation 'org.mockito:mockito-core'
         testImplementation 'org.mockito:mockito-inline'
         testImplementation 'org.mockito:mockito-junit-jupiter'
-        testImplementation "uk.co.jemos.podam:podam:${podamVersion}"
         testImplementation "net.datafaker:datafaker:${dataFakerVersion}" //https://github.com/datafaker-net/datafaker
         testImplementation 'ch.qos.logback:logback-classic'
+        testImplementation project(':commons-test')
+        testImplementation 'org.junit.jupiter:junit-jupiter-params'
     }
 
     test {

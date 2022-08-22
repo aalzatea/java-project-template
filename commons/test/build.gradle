@@ -1,0 +1,3 @@
+dependencies {
+    implementation "uk.co.jemos.podam:podam:${podamVersion}"
+}

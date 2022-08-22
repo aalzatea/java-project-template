@@ -1,4 +1,4 @@
-package commons.generators;
+package com.aalzatea.commons.test.beans.generators;
 
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 

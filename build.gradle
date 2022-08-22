@@ -1,7 +1,7 @@
 buildscript {
 	ext {
-		springBootVersion = '2.7.2'
-		springDependencyManagementVersion = '1.0.11.RELEASE'
+		springBootVersion = '2.7.3'
+		springDependencyManagementVersion = '1.0.13.RELEASE'
 		gradleWrapperVersion = '7.5.1'
 		podamVersion = '7.2.9.RELEASE'
 		dataFakerVersion = '1.5.0'

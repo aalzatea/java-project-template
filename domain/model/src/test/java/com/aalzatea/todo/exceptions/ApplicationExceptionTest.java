@@ -1,6 +1,6 @@
 package com.aalzatea.todo.exceptions;
 
-import commons.generators.BeanGenerator;
+import com.aalzatea.commons.test.beans.generators.BeanGenerator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
