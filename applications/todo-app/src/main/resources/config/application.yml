@@ -5,7 +5,7 @@ spring:
 # Custom application configurations
 app:
   json-configuration:
-    date-format: "yyyy-MM-dd'T'HH:mm:ss.SSSX"
+    date-format: "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
     #timezone: America/Bogota
     #timezone: UTC-05:00
     #timezone: GMT-5

@@ -1,3 +1,6 @@
 dependencies {
     implementation project(':domain-model')
+
+    //Spring dependencies
+    implementation 'org.springframework:spring-context'
 }
