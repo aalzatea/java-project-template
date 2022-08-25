@@ -21,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -94,7 +95,7 @@ class UpdateTaskUseCaseTest {
     }
 
     @Test
-    @DisplayName("Update a task does not exist")
+    @DisplayName("Update a task when want to find by ID throws an error")
     void updateTaskWithFindByIdThrowingError() {
         var dueDate = Date.from(LocalDateTime.now().plus(1, ChronoUnit.DAYS).atZone(ZoneId.systemDefault()).toInstant());
         var task = BeanGenerator.generateBean(Task.class)
@@ -104,9 +105,27 @@ class UpdateTaskUseCaseTest {
 
         when(taskGateway.findTaskById(task.getId())).thenThrow(IllegalArgumentException.class);
 
-        assertThrows(DataNotFoundException.class, () -> underTest.updateTask(task));
+        assertThrows(IllegalArgumentException.class, () -> underTest.updateTask(task));
 
         verify(taskGateway).findTaskById(task.getId());
         verify(taskGateway, times(0)).updateTask(any(Task.class));
+    }
+
+    @Test
+    @DisplayName("Update a task when want to update data throws an error")
+    void updateTaskWithUpdateTaskThrowingError() {
+        var dueDate = Date.from(LocalDateTime.now().plus(1, ChronoUnit.DAYS).atZone(ZoneId.systemDefault()).toInstant());
+        var task = BeanGenerator.generateBean(Task.class)
+                .toBuilder()
+                .dueDate(dueDate)
+                .build();
+
+        when(taskGateway.findTaskById(task.getId())).thenReturn(task);
+        doThrow(IllegalArgumentException.class).when(taskGateway).updateTask(any(Task.class));
+
+        assertThrows(IllegalArgumentException.class, () -> underTest.updateTask(task));
+
+        verify(taskGateway).findTaskById(task.getId());
+        verify(taskGateway).updateTask(any(Task.class));
     }
 }
