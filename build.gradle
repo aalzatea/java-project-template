@@ -5,6 +5,8 @@ buildscript {
 		gradleWrapperVersion = '7.5.1'
 		podamVersion = '7.2.9.RELEASE'
 		dataFakerVersion = '1.5.0'
+		beanMapperVersion = '3.1.0'
+		guavaVersion = '31.1-jre'
 	}
 }
 
