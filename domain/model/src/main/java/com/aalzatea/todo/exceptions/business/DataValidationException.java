@@ -15,7 +15,7 @@ public final class DataValidationException extends ApplicationException {
 
     public enum Type {
 
-        DATA_VALIDATION_EXCEPTION("400", "The below data are incorrect:\n%s");
+        DATA_VALIDATION_EXCEPTION("400", "domain.msg.data_validation.general");
 
         private final String code;
 
@@ -27,23 +27,21 @@ public final class DataValidationException extends ApplicationException {
         }
 
         public DataValidationException build(List<String> messages) {
-            var msg = buildExceptionMessage(messages);
-            return new DataValidationException(this, msg);
+            var messageParameter = buildExceptionMessage(messages);
+            return new DataValidationException(this, messageParameter);
         }
 
         private String buildExceptionMessage(List<String> messages) {
-            var msg = messages.stream()
+            return messages.stream()
                     .map(m -> "- " + m)
                     .collect(Collectors.joining("\n"));
-
-            return ApplicationException.formatMessage(this.message, msg);
         }
     }
 
     private final Type type;
 
-    private DataValidationException(Type type, String message) {
-        super(type.code, message, null);
+    private DataValidationException(Type type, Object... messageParameters) {
+        super(type.code, type.message, null, messageParameters);
         this.type = type;
     }
 }

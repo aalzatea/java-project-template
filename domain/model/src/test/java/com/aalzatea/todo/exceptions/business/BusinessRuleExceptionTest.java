@@ -10,13 +10,13 @@ class BusinessRuleExceptionTest {
 
     @Test
     @DisplayName("Test building a business rule exception instance with message parameters")
-    void testDataNotFoundExceptionBuildWithMsgParameters() {
+    void testBusinessRuleExceptionBuildWithMsgParameters() {
         var exception = BusinessRuleException.Type.BUSINESS_RULE_EXCEPTION
                 .buildWithMsgParameters("Person");
-        var expectedMessage = "This is a business rule exception message: 'Person'";
+        var expectedMessage = "domain.msg.business_rule.general";
 
         assertNotNull(exception);
         assertEquals(expectedMessage, exception.getMessage());
-        assertEquals(expectedMessage, exception.getErrorMessage().getMessage());
+        assertEquals("Person", exception.getMessageParameters()[0]);
     }
 }

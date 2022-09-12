@@ -12,18 +12,18 @@ class DataValidationExceptionTest {
 
     @Test
     @DisplayName("Test building a data validation exception instance with many error messages")
-    void testDataNotFoundExceptionBuildWithMsgParameters() {
+    void testDataValidationExceptionBuildWithMsgParameters() {
         var messages = Arrays.asList("Violation data message 1", "Violation data message 2", "Violation data message 3");
         var exception = DataValidationException.Type.DATA_VALIDATION_EXCEPTION
                 .build(messages);
-        var expectedMessage = """
-                The below data are incorrect:
+        var expectedMessage = "domain.msg.data_validation.general";
+        var expectedMessageParameters = """
                 - Violation data message 1
                 - Violation data message 2
                 - Violation data message 3""";
 
         assertNotNull(exception);
         assertEquals(expectedMessage, exception.getMessage());
-        assertEquals(expectedMessage, exception.getErrorMessage().getMessage());
+        assertEquals(expectedMessageParameters, exception.getMessageParameters()[0]);
     }
 }

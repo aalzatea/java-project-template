@@ -19,9 +19,25 @@ class ApplicationExceptionTest {
         var applicationException = new ApplicationException(code, message, exception);
 
         assertNotNull(applicationException);
-        assertEquals(code, applicationException.getErrorMessage().getCode());
+        assertEquals(code, applicationException.getErrorCode());
         assertEquals(message, applicationException.getMessage());
         assertEquals(exception, applicationException.getCause());
-        assertNotNull(applicationException.getErrorMessage().getErrorDate());
+    }
+
+    @Test
+    @DisplayName("Test creating an application exception instance with message parameters")
+    void testApplicationExceptionWithMessageParameters() {
+        var code = BeanGenerator.generateBean(String.class);
+        var message = BeanGenerator.generateBean(String.class);
+        var messageParameters = BeanGenerator.generateBean(Object[].class);
+        var exception = new IllegalArgumentException();
+
+        var applicationException = new ApplicationException(code, message, exception, messageParameters);
+
+        assertNotNull(applicationException);
+        assertEquals(code, applicationException.getErrorCode());
+        assertEquals(message, applicationException.getMessage());
+        assertEquals(messageParameters, applicationException.getMessageParameters());
+        assertEquals(exception, applicationException.getCause());
     }
 }

@@ -1,5 +1,6 @@
 package com.aalzatea.todo.config;
 
+import com.aalzatea.todo.config.json.JsonMapperConfiguration;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

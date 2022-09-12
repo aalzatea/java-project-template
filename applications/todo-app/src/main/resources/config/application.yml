@@ -4,6 +4,9 @@ spring:
 
 # Custom application configurations
 app:
+  i18n-configuration:
+    baseNames: >
+      i18n/messages
   json-configuration:
     date-format: "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
     #timezone: America/Bogota

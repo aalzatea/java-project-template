@@ -1,4 +1,4 @@
-package com.aalzatea.todo.config;
+package com.aalzatea.todo.config.json;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -20,7 +20,7 @@ public class JsonMapperConfiguration {
 
     private static final String DATE_FORMAT_DEFAULT = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
 
-    @Value("app.json-configuration.timezone")
+    @Value("${app.json-configuration.timezone}")
     private String timeZone;
 
     @Bean

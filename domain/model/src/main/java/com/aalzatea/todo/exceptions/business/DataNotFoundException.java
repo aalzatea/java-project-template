@@ -12,10 +12,10 @@ public final class DataNotFoundException extends ApplicationException {
     private static final long serialVersionUID = -5944305367401264464L;
 
     public enum Type {
-        DATA_NOT_FOUND_EXCEPTION("404", "Data not found."),
-        DATA_FOR_SOMETHING_NOT_FOUND_EXCEPTION("404", "The data for '%s' has not been found."),
-        DATA_FOR_COLLECTION_NOT_FOUND_EXCEPTION("404", "'%s' don't exist with the provided parameters."),
-        DATA_WITH_ID_NOT_FOUND_EXCEPTION("404", "The data for '%s' with id '%d' has not been found.");
+        DATA_NOT_FOUND_EXCEPTION("404", "domain.msg.data_not_found.general"),
+        DATA_FOR_SOMETHING_NOT_FOUND_EXCEPTION("404", "domain.msg.data_not_found.something_not_found"),
+        DATA_FOR_COLLECTION_NOT_FOUND_EXCEPTION("404", "domain.msg.data_not_found.collection_not_found"),
+        DATA_WITH_ID_NOT_FOUND_EXCEPTION("404", "domain.msg.data_not_found.id_not_found");
 
         private final String code;
 
@@ -27,24 +27,18 @@ public final class DataNotFoundException extends ApplicationException {
         }
 
         public DataNotFoundException build() {
-            return new DataNotFoundException(this);
+            return new DataNotFoundException(this, (Object[]) null);
         }
 
         public DataNotFoundException buildWithMsgParameters(Object... messageParameters) {
-            var msg = ApplicationException.formatMessage(this.message, messageParameters);
-            return new DataNotFoundException(this, msg);
+            return new DataNotFoundException(this, messageParameters);
         }
     }
 
     private final Type type;
 
-    private DataNotFoundException(Type type, String message) {
-        super(type.code, message, null);
-        this.type = type;
-    }
-
-    private DataNotFoundException(Type type) {
-        super(type.code, type.message, null);
+    private DataNotFoundException(Type type, Object... messageParameters) {
+        super(type.code, type.message, null, messageParameters);
         this.type = type;
     }
 }

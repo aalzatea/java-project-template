@@ -13,7 +13,7 @@ public class ExternalServiceException extends ApplicationException {
 
     public enum Type {
 
-        EXTERNAL_SERVICE_EXCEPTION("503", "The external service is unavailable at this moment. Please try again in a couple of minutes.");
+        EXTERNAL_SERVICE_EXCEPTION("503", "domain.msg.external_service.general");
 
         private final String code;
 

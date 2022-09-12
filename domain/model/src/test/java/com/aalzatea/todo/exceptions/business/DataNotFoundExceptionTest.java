@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 class DataNotFoundExceptionTest {
 
@@ -12,11 +13,11 @@ class DataNotFoundExceptionTest {
     @DisplayName("Test building a data not found exception instance")
     void testDataNotFoundExceptionBuild() {
         var exception = DataNotFoundException.Type.DATA_NOT_FOUND_EXCEPTION.build();
-        var expectedMessage = "Data not found.";
+        var expectedMessage = "domain.msg.data_not_found.general";
 
         assertNotNull(exception);
         assertEquals(expectedMessage, exception.getMessage());
-        assertEquals(expectedMessage, exception.getErrorMessage().getMessage());
+        assertNull(exception.getMessageParameters());
     }
 
     @Test
@@ -24,10 +25,10 @@ class DataNotFoundExceptionTest {
     void testDataNotFoundExceptionBuildWithMsgParameters() {
         var exception = DataNotFoundException.Type.DATA_WITH_ID_NOT_FOUND_EXCEPTION
                 .buildWithMsgParameters("Person", 1);
-        var expectedMessage = "The data for 'Person' with id '1' has not been found.";
+        var expectedMessage = "domain.msg.data_not_found.id_not_found";
 
         assertNotNull(exception);
         assertEquals(expectedMessage, exception.getMessage());
-        assertEquals(expectedMessage, exception.getErrorMessage().getMessage());
+        assertEquals(2, exception.getMessageParameters().length);
     }
 }

@@ -7,7 +7,9 @@ import com.aalzatea.todo.exceptions.business.DataValidationException;
 import com.aalzatea.todo.exceptions.external.ExternalServiceException;
 import com.aalzatea.todo.exceptions.messages.ErrorMessage;
 import com.aalzatea.todo.validations.BeanValidator;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -15,12 +17,19 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
+import java.util.Locale;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Slf4j
 @RestControllerAdvice
+@RequiredArgsConstructor
 public class ErrorHandlingController {
+
+    private final MessageSource messageSource;
 
     @ExceptionHandler(DataValidationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -42,9 +51,10 @@ public class ErrorHandlingController {
                     )
                 ).collect(Collectors.toUnmodifiableList());
 
-        return DataValidationException.Type.DATA_VALIDATION_EXCEPTION
-                .build(messages)
-                .getErrorMessage();
+        var exception = DataValidationException.Type.DATA_VALIDATION_EXCEPTION
+                .build(messages);
+
+        return getErrorMessage(exception);
     }
 
     @ExceptionHandler(DataNotFoundException.class)
@@ -72,8 +82,15 @@ public class ErrorHandlingController {
     }
 
     private ErrorMessage getErrorMessage(ApplicationException applicationException) {
-        logger.error(applicationException.getMessage(), applicationException);
-        return applicationException.getErrorMessage();
+        var message = messageSource.getMessage(applicationException.getMessage(),
+                applicationException.getMessageParameters(),
+                null,
+                Locale.ENGLISH);
+        var currentDate = LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant();
+
+        logger.error(message, applicationException);
+
+        return new ErrorMessage(applicationException.getErrorCode(), message, Date.from(currentDate));
     }
 
     private ErrorMessage getErrorMessage(Exception exception) {
@@ -82,5 +99,10 @@ public class ErrorHandlingController {
         var code = String.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value());
 
         return new ErrorMessage(code, exception.getMessage(), new Date());
+    }
+
+    private String formatMessage(String message, Object... messageArgs) {
+        return Objects.nonNull(message) && Objects.nonNull(messageArgs) ?
+                String.format(message, messageArgs) : message;
     }
 }

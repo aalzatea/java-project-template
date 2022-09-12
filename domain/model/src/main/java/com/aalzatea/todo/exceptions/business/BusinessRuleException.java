@@ -13,7 +13,7 @@ public class BusinessRuleException extends ApplicationException {
 
     public enum Type {
 
-        BUSINESS_RULE_EXCEPTION("409", "This is a business rule exception message: '%s'");
+        BUSINESS_RULE_EXCEPTION("409", "domain.msg.business_rule.general");
 
         private final String code;
 
@@ -25,15 +25,14 @@ public class BusinessRuleException extends ApplicationException {
         }
 
         public BusinessRuleException buildWithMsgParameters(Object... messageParameters) {
-            var msg = ApplicationException.formatMessage(this.message, messageParameters);
-            return new BusinessRuleException(this, msg);
+            return new BusinessRuleException(this, this.message, messageParameters);
         }
     }
 
     private final Type type;
 
-    private BusinessRuleException(Type type, String message) {
-        super(type.code, message, null);
+    private BusinessRuleException(Type type, String message, Object... messageParameters) {
+        super(type.code, message, null, messageParameters);
         this.type = type;
     }
 }
